@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Liste des maisons</title>
+    <style>
+      {% block page_css %}
+        @page {
+
+          margin-footer: 0.5cm;
+
+          /*header: html_headerContent;*/
+          footer: html_pageFooter;
+          margin-top: 0.5cm;
+          margin-header: 0cm;
+          margin-left: 1cm;
+           margin-right: 1cm;
+          /*background: ...
+  background-image: ...
+  background-position ...
+  background-repeat ...
+  background-color ...
+  background-gradient: ...*/
+        }
+        .clearfix:after,
+        {% endblock %} .clearfix:before {
+          content: " ";
+          display: table;
+        }
+
+        .clearfix:after {
+          clear: both;
+        }
+
+        .mention {
+  position: absolute;
+  bottom: 100px;
+}
+
+        /*@page :first {
+   header: html_headerContent;
+}*/
+
+        .table {
+          width: 100%;
+          max-width: 100%;
+          border-collapse: collapse;
+
+        }
+        .table {
+          page-break-before: auto;
+        }
+
+        body {
+          font-family: Trebuchet,Arial,Helvetica;
+        }
+
+        .table td,
+        .table th {
+          padding: 2px;
+          vertical-align: top;
+          border-top: 1px solid #191919;
+        }
+
+        .table thead th {
+          vertical-align: bottom;
+          border-bottom: 2px solid #191919;
+        }
+
+        .table tbody + tbody {
+          border-top: 1px solid #191919;
+        }
+
+        .table .table {
+          background-color: #fff;
+        }
+
+        .table-sm td,
+        .table-sm th {
+          padding: 0.3rem;
+        }
+
+        .table-bordered {
+          border: 1px solid #191919;
+        }
+
+        .table-bordered td,
+        .table-bordered th {
+          border: 1px solid #191919;
+        }
+
+        .table-bordered thead td,
+        .table-bordered thead th {
+          border-bottom-width: 1px;
+        }
+
+        @media all {
+          /*.content { display: block; page-break-inside: avoid; }*/
+        }
+
+        .content {
+          /*margin-top: 18cm;*/
+        }
+
+        .table-responsive.table-bordered {
+          border: 0;
+        }
+
+        .double_underline {
+            text-decoration:underline;
+            border-bottom: 1px solid #000;
+            text-align: center;
+        }
+    </style>
+  </head>
+  <body style="font-size:12px;">
+    <div class="clearfix">
+     <div style="width:50%;text-align:left;float:left;"  class="">
+            {% set var = "uploads/" ~ menu.findParametre.logo.path ~"/"~ menu.findParametre.logo.alt %}
+        <img src="{{ var |replace({'/': "\\"}) }}" width="200px" height="50px"/>
+        <p>
+            {{ entreprise.adresse}}<br>
+            TEL: +225 {{ entreprise.mobile}} FAX.: +225 {{ entreprise.fax}}<br>
+            EMAIL: <a href="mailto:{{ entreprise.email }}">{{ entreprise.email}}</a>
+        </p>
+      </div>
+   
+       <div style="width:50%;text-align:left;float:right;">
+           <h3 style="font-weight:700;font-size:20px">Fiche des maisons  <span style="font-size:10px;color:#FF2E2E"> </span></h3> 
+          {# <span style="margin-top: 14px;">{{ 'now' | date('d/m/Y') }}</span> #}
+       
+
+        </div>
+    </div>
+   
+
+       {% for m in maisons %}
+<div class="clearfix">
+     
+   
+       <div style="width:50%;text-align:left;float:left;margin-top:20px;border: 1px solid #000;padding-left:12px;"  class="">
+      {# <h3 style="margin-top:0"><u>DESCRIPTION DU LOGEMENT</u></h3> #}
+        <p  style="margin-bottom:2px;margin-top:3px;">Libelle maison: <b>{{ m.LibMaison }}</b></p>
+        <p style="margin-bottom:2px;margin-top:3px;">Propriétaire: <b>{{ m.proprio.nomPrenoms }}</b></p>
+        <p style="margin-bottom:2px;margin-top:3px;">Montant commission: <span style="font-size:15px;color:#FF2E2E">{{ m.MntCom |number_format(0, '.', '.') }} </span>FCFA </p>
+        <p style="margin-bottom:2px;margin-top:3px;">Agent de recouvrement: <b>{{ m.IdAgent.employe.getNomComplet }}</b> </p>
+      </div>
+    </div>
+
+      {#   <table class="table table-bordered" style="margin-top:10px;font-size:10px">
+      <thead>
+        <tr>
+          <th style="vertical-align:middle;">Libelle maison</th>
+          <th style="vertical-align:middle">Propriotaire</th>
+          <th style="vertical-align:middle;">Montant commission</th>
+          <th style="vertical-align:middle;">Agent de recouvrement</th>
+        </tr>
+      </thead>
+      <tbody>
+       
+       
+          <tr>
+            <td style="vertical-align:middle;text-align:center;padding:8px 5px">{{ m.LibMaison }}</td>
+            <td style="vertical-align:middle;text-align:center;">{{ m.proprio.nomPrenoms}}</td>
+             <td style="vertical-align:middle;text-align:center;" ><span style="font-size:15px;color:#FF2E2E">{{m.MntCom |number_format(0, '.', '.') }}</span></td>
+            
+            <td style="vertical-align:middle;text-align:center;" >{{ m.IdAgent.employe.getNomComplet  }}</td>
+            
+            
+           
+          </tr>
+      
+        
+    </table> #}
+     
+        <br>
+  
+        
+    <table class="table table-bordered" style="margin-top:10px;font-size:10px">
+      <thead>
+        <tr>
+          <th style="vertical-align:middle;">No Appartement</th>
+          <th style="vertical-align:middle;width:20%">Nombre de pièces</th>
+          <th style="vertical-align:middle;width:20%">Loyer</th>
+          <th style="vertical-align:middle;width:20%">Locataire</th>
+          <th style="vertical-align:middle;width:20%">Date entrée</th>
+       
+        </tr>
+      </thead>
+      <tbody>
+       
+         {% for ligne in m.appartements %}
+         
+          <tr>
+            <td style="vertical-align:middle;text-align:center;">{{ ligne.LibAppart}}</td>
+            <td style="vertical-align:middle;text-align:center;">{{ ligne.NbrePieces}}</td>
+            <td style="vertical-align:middle;text-align:center;" ><span style="font-size:15px;color:#FF2E2E">{{ligne.Loyer | number_format(0, '.', '.') }}</span ></td>
+            <td style="vertical-align:middle;text-align:center;" >{{ ligne.getInfo ? ligne.getInfo.locataire.NPrenoms :'Appartement libre' }}</td>
+            <td style="vertical-align:middle;text-align:center;" >{{ ligne.getInfo ? ligne.getInfo.DateEntree|date("m/d/Y") :'Appartement libre' }}</td>
+          
+           
+            {# <td style="vertical-align:middle;text-align:center;" >{{ menu.existeContrat(ligne.id) ?  menu.existeContrat(ligne.id).locataire.NPrenoms  : 'Appartement libre'  }}</td>
+            <td style="vertical-align:middle;text-align:center;" >{{ menu.existeContrat(ligne.id) ?  (menu.existeContrat(ligne.id).DateEntree)|date("m/d/Y")  : 'Appartement libre' }}</td>
+             #}
+            {# {{ dump(ligne.getInfo )}} #}
+           {#  {{ dump(ligne.getInfo ? ligne.getInfo.locataire.NPrenoms :'fff' )}} #}
+          </tr>
+         {% endfor %}
+        
+    </table>
+    <br> 
+  <div  style="border-bottom:3px solid #000">
+  </div>
+   {#  <hr width="20px" style="border-bottom:3px solid #000">     <br>  #}
+       {% endfor %}
+    
+
+    
+    
+    
+    <htmlpagefooter name="pageFooter">
+      
+    </htmlpagefooter>
+  </body>
+</html>

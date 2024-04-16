@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Liste des locataires</title>
+    <style>
+      {% block page_css %}
+        @page {
+
+          margin-footer: 0.5cm;
+
+          /*header: html_headerContent;*/
+          footer: html_pageFooter;
+          margin-top: 0.5cm;
+          margin-header: 0cm;
+          margin-left: 1cm;
+           margin-right: 1cm;
+          /*background: ...
+  background-image: ...
+  background-position ...
+  background-repeat ...
+  background-color ...
+  background-gradient: ...*/
+        }
+        .clearfix:after,
+        {% endblock %} .clearfix:before {
+          content: " ";
+          display: table;
+        }
+
+        .clearfix:after {
+          clear: both;
+        }
+
+        .mention {
+  position: absolute;
+  bottom: 100px;
+}
+
+        /*@page :first {
+   header: html_headerContent;
+}*/
+
+        .table {
+          width: 100%;
+          max-width: 100%;
+          border-collapse: collapse;
+
+        }
+        .table {
+          page-break-before: auto;
+        }
+
+        body {
+          font-family: Trebuchet,Arial,Helvetica;
+        }
+
+        .table td,
+        .table th {
+          padding: 2px;
+          vertical-align: top;
+          border-top: 1px solid #191919;
+        }
+
+        .table thead th {
+          vertical-align: bottom;
+          border-bottom: 2px solid #191919;
+        }
+
+        .table tbody + tbody {
+          border-top: 1px solid #191919;
+        }
+
+        .table .table {
+          background-color: #fff;
+        }
+
+        .table-sm td,
+        .table-sm th {
+          padding: 0.3rem;
+        }
+
+        .table-bordered {
+          border: 1px solid #191919;
+        }
+
+        .table-bordered td,
+        .table-bordered th {
+          border: 1px solid #191919;
+        }
+
+        .table-bordered thead td,
+        .table-bordered thead th {
+          border-bottom-width: 1px;
+        }
+
+        @media all {
+          /*.content { display: block; page-break-inside: avoid; }*/
+        }
+
+        .content {
+          /*margin-top: 18cm;*/
+        }
+
+        .table-responsive.table-bordered {
+          border: 0;
+        }
+
+        .double_underline {
+            text-decoration:underline;
+            border-bottom: 1px solid #000;
+            text-align: center;
+        }
+    </style>
+  </head>
+  <body style="font-size:12px;">
+    <div class="clearfix">
+     <div style="width:50%;text-align:left;float:left;"  class="">
+            {% set var = "uploads/" ~ menu.findParametre.logo.path ~"/"~ menu.findParametre.logo.alt %}
+        <img src="{{ var |replace({'/': "\\"}) }}" width="200px" height="50px"/>
+        <p>
+            {{ entreprise.adresse}}<br>
+            TEL: +225 {{ entreprise.mobile}} FAX.: +225 {{ entreprise.fax}}<br>
+            EMAIL: <a href="mailto:{{ entreprise.email }}">{{ entreprise.email}}</a>
+        </p>
+      </div>
+   
+       <div style="width:50%;text-align:left;float:right;">
+           <h3 style="font-weight:700;font-size:20px">Fiche des locataires  <span style="font-size:10px;color:#FF2E2E"> </span></h3> 
+          {# <span style="margin-top: 14px;">{{ 'now' | date('d/m/Y') }}</span> #}
+       
+
+        </div>
+    </div>
+   
+
+       
+
+        
+    <table class="table table-bordered" style="margin-top:10px;font-size:10px">
+      <thead>
+        <tr>
+      {#   , , , Appartement (Maison/N° Appart), Date entrée, nature et régime location #}
+          <th style="vertical-align:middle;">Nom et prénoms</th>
+          <th style="vertical-align:middle;">Profession</th>
+          <th style="vertical-align:middle;">Contacts</th>
+          <th style="vertical-align:middle;">Appartement (Maison/N° Appart)</th>
+          <th style="vertical-align:middle;">Date entrée</th>
+          <th style="vertical-align:middle;">nature</th>
+          <th style="vertical-align:middle;">Régime location</th>
+       
+        </tr>
+      </thead>
+      <tbody>
+       
+         {% for ligne in locataires %}
+         
+          <tr>
+            <td style="vertical-align:middle;text-align:center;">{{ ligne.NPrenoms}}</td>
+            <td style="vertical-align:middle;text-align:center;">{{ ligne.Profession}}</td>
+            <td style="vertical-align:middle;text-align:center;">{{ ligne.Contacts}}</td>
+            <td style="vertical-align:middle;text-align:center;" >{{ ligne.getInfo ? ligne.getInfo.appart.maisson.LibMaison ~'/' ~ligne.getInfo.appart.LibAppart :'Locataire sans contrat' }}</td>
+            <td style="vertical-align:middle;text-align:center;" >{{ ligne.getInfo ? ligne.getInfo.DateEntree|date("m/d/Y") :'Locataire sans contrat' }}</td>
+            <td style="vertical-align:middle;text-align:center;" >{{ ligne.getInfo ? ligne.getInfo.Nature :'Locataire sans contrat' }}</td>
+            <td style="vertical-align:middle;text-align:center;" >{{ ligne.getInfo ? ligne.getInfo.Regime =='Paye_Consomme' ?'Payé consommé':'Consommé payé' :'Locataire sans contrat' }}</td>
+            
+          
+           
+            {# <td style="vertical-align:middle;text-align:center;" >{{ menu.existeContrat(ligne.id) ?  menu.existeContrat(ligne.id).locataire.NPrenoms  : 'Appartement libre'  }}</td>
+            <td style="vertical-align:middle;text-align:center;" >{{ menu.existeContrat(ligne.id) ?  (menu.existeContrat(ligne.id).DateEntree)|date("m/d/Y")  : 'Appartement libre' }}</td>
+             #}
+            {# {{ dump(ligne.getInfo )}} #}
+           {#  {{ dump(ligne.getInfo ? ligne.getInfo.locataire.NPrenoms :'fff' )}} #}
+          </tr>
+         {% endfor %}
+        
+    </table>
+    {# <br> 
+  <div  style="border-bottom:3px solid #000">
+  </div> #}
+   {#  <hr width="20px" style="border-bottom:3px solid #000">     <br>  #}
+    
+    
+
+    
+    
+    
+    <htmlpagefooter name="pageFooter">
+      
+    </htmlpagefooter>
+  </body>
+</html>

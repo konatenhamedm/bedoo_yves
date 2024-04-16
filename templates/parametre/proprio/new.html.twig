@@ -1,0 +1,312 @@
+{% block page_content %}
+    {% form_theme form 'widget/fields-block.html.twig' %}
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Création Proprio</h5>
+        <div class="btn btn-icon btn-sm  ms-2" data-bs-dismiss="modal" aria-label="Close">
+            <span class="svg-icon svg-icon-2x text-white">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="currentColor"></rect>
+					<rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="currentColor"></rect>
+				</svg>
+            </span>
+        </div>
+    </div>
+    {{ form_start(form, {'attr': {'role':'form', 'class': 'form'}}) }}
+    <div class="modal-body content-doc">
+        {{ include('_includes/ajax/response.html.twig') }}
+       
+        <div id="kt_content_container" class=" container-xxl ">
+           
+        
+            <!--begin::Row-->
+            <div class="row g-5 g-xl-8">
+                <!--begin::Col-->
+                <div class="col-xl-6">
+        
+                    <!--begin::Tables Widget 3-->
+                    <div class="card card-xl-stretch mb-xl-8">
+                        <div class="card card-xl-stretch mb-xl-8">
+                            <!--begin::Header-->
+                            <div class="card-header border-0 "
+                                style="border-bottom:1px solid white;background: #3a4049;min-height: 50px !important;">
+                                <h3 class="card-title align-items-start flex-column text-white">
+                                    <span class="card-label fw-bold fs-3 mb-1 text-white">
+                        
+                                    Proprietaire
+                        
+                                    </span>
+                                </h3>
+                        
+                            </div>
+                            <!--end::Header-->
+                            <!--begin::Body-->
+                            <div class="card-body py-3 p-0">
+                                <!--begin::Table container-->
+                                <div class="row">
+                                    <div class="form-group col-md-12">
+                                    <label class="sr-onl" for="userinput1">
+                                            Non et prénoms*
+                                        </label>
+                                        {{ form_widget(form.nomPrenoms) }}
+                                    </div>
+                                 
+                                </div>
+
+                                <div class="row">
+
+                                 <div class="form-group col-md-6">
+                                        <label class="sr-onl" for="userinput1">
+                                            Lieu de naissance*
+                                        </label>
+                                        {{ form_widget(form.lieuNaiss) }}
+                                    </div>
+                                     <div class="form-group col-md-6">
+                                        <label class="sr-onl" for="userinput1">
+                                            Date de naissance*
+                                        </label>
+                                        {{ form_widget(form.dateNaiss) }}
+                                    </div>
+
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="form-group col-md-6">
+                                        <label class="sr-onl" for="userinput1">
+                                            Profession*
+                                        </label>
+                                        {{ form_widget(form.prefession) }}
+                                    </div>
+                                      <div class="form-group col-md-6">
+                                        <label class="sr-onl" for="userinput1">
+                                            Adresse*
+                                        </label>
+                                        {{ form_widget(form.addresse) }}
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                 
+                                     <div class="form-group col-md-4">
+                                    <label class="sr-onl" for="userinput1">
+                                            Contact*
+                                        </label>
+                                        {{ form_widget(form.contacts) }}
+                                    </div>
+                                <div class="form-group col-md-4">
+                                        <label class="sr-onl" for="userinput1">
+                                            whatsApp*
+                                        </label>
+                                        {{ form_widget(form.whatsApp) }}
+                                    </div>
+                                 
+                                    <div class="form-group col-md-4">
+                                    <label class="sr-onl" for="userinput1">
+                                    Email
+                                    </label>
+                                    {{ form_widget(form.email) }}
+                                    </div>
+                                </div>
+                                   <div class="row">
+                                    <div class="form-group col-md-6">
+                                        <label class="sr-onl" for="userinput1">
+                                            Nom du père*
+                                        </label>
+                                        {{ form_widget(form.nomPere) }}
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label class="sr-onl" for="userinput1">
+                                            Nom de la mère*
+                                        
+                                        </label>
+                                        {{ form_widget(form.nomMere) }}
+                                    </div>
+                                </div>
+
+
+                            <div class="row">
+                                    <div class="form-group col-md-4">
+                                    <label class="sr-onl" for="userinput1">
+                                        Numéro CNI*
+                                    </label>
+                                    {{ form_widget(form.numCni) }}
+                                    </div>
+                                       <div class="form-group col-md-4">
+                                        <label class="sr-onl" for="userinput1">
+                                            Date de la CNI*
+                                        </label>
+                                        {{ form_widget(form.dateCni) }}
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                    <label class="sr-onl" for="userinput1">
+                                            CNI*
+                                        </label>
+                                        {{ form_widget(form.Cni) }}
+                                    </div>
+                                </div>
+                                
+                              
+                            </div>
+
+                           <!--begin::Col-->
+                        </div>
+                   </div>   
+                </div>
+                <div class="col-xl-6">
+                
+                    <!--begin::Tables Widget 3-->
+                    <div class="card card-xl-stretch mb-xl-8">
+                        <!--begin::Header-->
+                        <div class="card-header border-0 "
+                            style="border-bottom:1px solid white;background: #3a4049;min-height: 50px !important;">
+                            <h3 class="card-title align-items-start flex-column text-white">
+                                <span class="card-label fw-bold fs-3 mb-1 text-white">
+                        
+                                    Répresentant Légal
+                        
+                                </span>
+                            </h3>
+                        
+                        </div>
+                        <!--end::Header-->
+                        <!--begin::Body-->
+                        <div class="card-body py-3 p-0">
+                            <!--begin::Table container-->
+                
+                            <div class="row">
+                                <div class="form-group col-md-12">
+                                 <label class="sr-onl" for="userinput1">
+                                        Non et prénom*
+                                    </label>
+                                    {{ form_widget(form.nomPrenomsR) }}
+                                </div>
+                              
+                            </div>
+
+                            <div class="row">
+                             <div class="form-group col-md-6">
+                                    <label class="sr-onl" for="userinput1">
+                                        Lieu de naissance*
+                                    </label>
+                                    {{ form_widget(form.lieuNaissR) }}
+                                </div>
+                             <div class="form-group col-md-6">
+                                    <label class="sr-onl" for="userinput1">
+                                        Date de naissance*
+                                    </label>
+                                    {{ form_widget(form.dateNaissR) }}
+                                </div>
+
+                            </div>
+                              <div class="row">
+                                
+                                <div class="form-group col-md-6">
+                                    <label class="sr-onl" for="userinput1">
+                                        Profession*
+                                    </label>
+                                    {{ form_widget(form.professionR) }}
+                                </div>
+                                   <div class="form-group col-md-6">
+                                    <label class="sr-onl" for="userinput1">
+                                        Adresse*
+                                    </label>
+                                    {{ form_widget(form.adresseR) }}
+                                </div>
+                             </div>
+
+                            <div class="row">
+                               
+                                <div class="form-group col-md-4">
+                                    <label class="sr-onl" for="userinput1">
+                                        Contact*
+                                    </label>
+                                    {{ form_widget(form.contactsR) }}
+                                </div>
+                                  <div class="form-group col-md-4">
+                                    <label class="sr-onl" for="userinput1">
+                                        whatsApp*
+                                    </label>
+                                    {{ form_widget(form.whatsAppR) }}
+                                </div>
+                                   <div class="form-group col-md-4">
+                                    <label class="sr-onl" for="userinput1">
+                                        Email
+                                    </label>
+                                    {{ form_widget(form.emailR) }}
+                                </div>
+                            </div>
+
+                            <div class="row">
+                            <div class="form-group col-md-6">
+                                    <label class="sr-onl" for="userinput1">
+                                        Nom du père*
+                                    </label>
+                                    {{ form_widget(form.nomPrereR) }}
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label class="sr-onl" for="userinput1">
+                                        Nom de la mère*
+                                    </label>
+                                    {{ form_widget(form.nomMereR) }}
+                                </div>
+                            </div>
+                          
+                          
+                            <div class="row">
+                                <div class="form-group col-md-4">
+                                <label class="sr-onl" for="userinput1">
+                                    Numéro CNI*
+                                </label>
+                                {{ form_widget(form.numCniR) }}
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label class="sr-onl" for="userinput1">
+                                        Date de la CNI*
+                                    </label>
+                                    {{ form_widget(form.dateCniR) }}
+                                </div>
+                                 <div class="form-group col-md-4">
+                                    <label class="sr-onl" for="userinput1">
+                                        Lien*
+                                    </label>
+                                    {{ form_widget(form.lien) }}
+                                </div>
+                            
+                            </div>
+                            
+                               
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                 
+               </div>
+    <div class="modal-footer">
+        {# {{ include('_includes/ajax/loader.html.twig') }} #}
+        <button type="button" class="btn btn-default btn-sm" data-bs-dismiss="modal">Annuler</button>
+        <button type="submit" class="btn btn-main btn-ajax btn-sm"><span class="spinner-border d-none  spinner-ajax spinner-border-sm" role="status" aria-hidden="true"></span> Valider</button>
+    </div>
+    {{ form_end(form) }}
+{% endblock %}
+
+{% block java %}
+    <script>
+        $(function () {
+            init_select2('select');
+        });
+        $(function () {
+            init_select2('select', null, '.content-doc');
+        });
+        $('.no-auto').each(function () {
+            const $this = $(this);
+            const $id = $('#' + $this.attr('id'));
+            init_date_picker($id,  'down', (start, e) => {
+                //$this.val(start.format('DD/MM/YYYY'));
+            }, null, null, null);
+
+            $id.on('apply.daterangepicker', function (ev, picker) {
+                $(this).val(picker.startDate.format('DD/MM/YYYY'));
+            });
+        });
+
+    </script>
+{% endblock %}

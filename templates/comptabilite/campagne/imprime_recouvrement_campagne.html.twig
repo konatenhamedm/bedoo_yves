@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Campagne</title>
+    <style>
+      {% block page_css %}
+        @page {
+
+          margin-footer: 0.5cm;
+
+          /*header: html_headerContent;*/
+          footer: html_pageFooter;
+          margin-top: 0.5cm;
+          margin-header: 0cm;
+          margin-left: 1cm;
+           margin-right: 1cm;
+          /*background: ...
+  background-image: ...
+  background-position ...
+  background-repeat ...
+  background-color ...
+  background-gradient: ...*/
+        }
+        .clearfix:after,
+        {% endblock %} .clearfix:before {
+          content: " ";
+          display: table;
+        }
+
+        .clearfix:after {
+          clear: both;
+        }
+
+        .mention {
+  position: absolute;
+  bottom: 100px;
+}
+
+        /*@page :first {
+   header: html_headerContent;
+}*/
+
+        .table {
+          width: 100%;
+          max-width: 100%;
+          border-collapse: collapse;
+
+        }
+        .table {
+          page-break-before: auto;
+        }
+
+        body {
+          font-family: Trebuchet,Arial,Helvetica;
+        }
+
+        .table td,
+        .table th {
+          padding: 2px;
+          vertical-align: top;
+          border-top: 1px solid #191919;
+        }
+
+        .table thead th {
+          vertical-align: bottom;
+          border-bottom: 2px solid #191919;
+        }
+
+        .table tbody + tbody {
+          border-top: 1px solid #191919;
+        }
+
+        .table .table {
+          background-color: #fff;
+        }
+
+        .table-sm td,
+        .table-sm th {
+          padding: 0.3rem;
+        }
+
+        .table-bordered {
+          border: 1px solid #191919;
+        }
+
+        .table-bordered td,
+        .table-bordered th {
+          border: 1px solid #191919;
+        }
+
+        .table-bordered thead td,
+        .table-bordered thead th {
+          border-bottom-width: 1px;
+        }
+
+        @media all {
+          /*.content { display: block; page-break-inside: avoid; }*/
+        }
+
+        .content {
+          /*margin-top: 18cm;*/
+        }
+
+        .table-responsive.table-bordered {
+          border: 0;
+        }
+
+        .double_underline {
+            text-decoration:underline;
+            border-bottom: 1px solid #000;
+            text-align: center;
+        }
+    </style>
+  </head>
+  <body style="font-size:12px;">
+    <div class="clearfix">
+     <div style="width:50%;text-align:left;float:left;"  class="">
+            {% set var = "uploads/" ~ menu.findParametre.logo.path ~"/"~ menu.findParametre.logo.alt %}
+        <img src="{{ var |replace({'/': "\\"}) }}" width="200px" height="50px"/>
+        <p>
+            {{ entreprise.adresse}}<br>
+            TEL: +225 {{ entreprise.mobile}} FAX.: +225 {{ entreprise.fax}}<br>
+            EMAIL: <a href="mailto:{{ entreprise.email }}">{{ entreprise.email}}</a>
+        </p>
+      </div>
+   
+       <div style="width:50%;text-align:left;float:right;">
+          <h3 style="font-weight:700;font-size:20px">POINT DES RECOUVREMENTS : <span style="font-size:10px;color:#FF2E2E">{{ campagne.LibCampagne}} </span></h3>
+          {# <span style="margin-top: 14px;">{{ 'now' | date('d/m/Y') }}</span> #}
+       
+
+        </div>
+    </div>
+     
+    <table class="table table-bordered" style="margin-top:10px;font-size:10px">
+      <thead>
+        <tr>
+          <th style="vertical-align:middle;">Nombre propriétaires</th>
+          <th style="vertical-align:middle">Nombre locataires</th>
+          <th style="vertical-align:middle;">Total à récouvrer</th>
+          <th style="vertical-align:middle;">Total encaissé</th>
+          <th style="vertical-align:middle;">Total restant</th>
+          <th style="vertical-align:middle;">Total commission</th>
+        </tr>
+      </thead>
+      <tbody>
+       
+       
+          <tr>
+            <td style="vertical-align:middle;text-align:center;padding:8px 5px">{{ campagne.NbreProprio }}</td>
+            <td style="vertical-align:middle;text-align:center;">{{ campagne.NbreLocataire}}</td>
+            <td style="vertical-align:middle;text-align:center;" >{{ campagne.MntTotal |number_format(0, '.', '.') }}</td>
+            <td style="vertical-align:middle;text-align:center;" >{{ montant_encaisse |number_format(0, '.', '.')  }}</td>
+            <td style="vertical-align:middle;text-align:center;" >{{ reste_encaisse |number_format(0, '.', '.') }}</td>
+            <td style="vertical-align:middle;text-align:center;" >{{ commission |number_format(0, '.', '.') }}</td>
+            
+           
+          </tr>
+      
+        
+    </table>
+
+    <br><br>
+    
+        {% set totalSolde = 0 %}
+        {% set MontanTotal = 0 %}
+         {% set totalEncaisse =  MontanTotal - totalSolde %}
+        
+    {% for agent in agents %}
+       
+        <h4 class="margin-top:25px"><b>{{ agent.employe.getNomComplet| upper }} | {{ agent.employe.contact}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TOTAL ENCAISSE : <span style="font-size:10px;color:#FF2E2E">{{ menu.getAllFactureByAgentCampagneTotals(agent.id,campagne)[0]['encaisse'] |number_format(0, '.', '.') }} F </span> 
+        
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{"Reste à recouvrer"| upper}} : <span style="font-size:10px;color:#FF2E2E">{{menu.getAllFactureByAgentCampagneTotals(agent.id,campagne)[0]['reste'] |number_format(0, '.', '.')}} F </span>
+         </b></h4>
+        
+    <table class="table table-bordered" style="margin-top:10px;font-size:10px">
+      <thead>
+        <tr>
+          <th style="vertical-align:middle;">Nom locataire</th>
+          <th style="vertical-align:middle;">Nom propriétaires</th>
+          <th style="vertical-align:middle;width:10%">N Réçu transmis</th>
+          <th style="vertical-align:middle;">Montant</th>
+          <th style="vertical-align:middle;">Date</th>
+          <th style="vertical-align:middle;">Regime</th>
+          <th style="vertical-align:middle;">Remarque</th>
+        </tr>
+      </thead>
+      <tbody>
+       
+         {% for ligne in menu.getAllFactureByAgentCampagne(agent.id,campagne) %}
+         {# {% set total_ligne = (ligne.cout * ligne.quantite) %} #}
+          <tr>
+            <td style="vertical-align:middle;text-align:center;">{{ ligne.locataire.NPrenoms}}</td>
+            <td style="vertical-align:middle;text-align:center;">{{ ligne.appartement.maisson.proprio.nomPrenoms}}</td>
+            <td style="vertical-align:middle;text-align:center;" >{{ ligne.versement ? ligne.versement.numeroRecu : '' }}</td>
+            <td style="vertical-align:middle;text-align:center;" >{{ligne.MntFact |number_format(0, '.', '.') }}</td>
+            <td style="vertical-align:middle;text-align:center;" >{{ ligne.DateEmission |date("m/d/Y") }}</td>
+            <td style="vertical-align:middle;text-align:center;" >  {{ ligne.contrat.Regime == 'Paye_Consomme' ? 'Payé consomme': 'Consommé payé'}}</td>
+            <td style="vertical-align:middle;text-align:center;" >Remarque</td>
+            
+          </tr>
+         {% endfor %}
+        
+    </table>
+    {% endfor %}
+    
+    
+    
+    <htmlpagefooter name="pageFooter">
+      
+    </htmlpagefooter>
+  </body>
+</html>

@@ -1,0 +1,89 @@
+{% extends 'base-layout.html.twig' %}
+
+{% block title %}Liste des locataires{% endblock %}
+{% block header %}locataires{% endblock %}
+{% block breadcrumb %}{% endblock %}
+{% block body %}
+<div class="card shadow-sm">
+    <div class="card-header card-header-sm">
+        <h3 class="card-title"> Liste des locataires</h3>
+        <div class="card-toolbar">
+            {% if permition in ["CR","CRU","CRUD"] %}
+            <a href="{{ path('app_location_locataire_new') }}" class="btn btn-main btn-sm"  
+                data-bs-toggle="modal" data-bs-target="#exampleModalSizeSm2">
+                <i class="bi bi-plus-square text-light"></i>
+                Nouveau
+            </a>
+            {% endif %}
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-sm-12">
+                {% if permition != null %}
+
+                <div class="row">
+                  <div class="col-md-4">
+                  <a href="{{ path('default_print_iframe',{
+                    'r':'app_fiche_etat_locataire_all'
+                  }) }}" class="btn btn-default btn-sm" 
+                data-bs-toggle="modal" data-bs-target="#exampleModalSizeSm2">
+                <i class="fa fa-print text-light"></i>
+                Imprimer
+            </a>
+                  </div>
+                  <div class="col-md-8">
+                  </div>
+                </div>
+                <div id="grid_app_location_locataire" class="grid-dt-wrapper">Chargement....</div>
+                {% else %}
+                <div class="d-flex flex-column flex-center flex-column-fluid">
+                    <!--begin::Content-->
+                    <div class="d-flex flex-column flex-center text-center ">
+                        <!--begin::Wrapper-->
+                        <div class="card card-flush w-lg-650px py-5">
+                            <div class="card-body py-1 py-lg-20" style="margin-top: -88px">
+
+                                <!--begin::Title-->
+                                 {% include "_includes/message_error.html.twig" %}
+                                <!--end::Title-->
+                                <!--begin::Illustration-->
+                               
+
+
+                            </div>
+                        </div>
+                        <!--end::Wrapper-->
+                    </div>
+                    <!--end::Content-->
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+{% block java %}
+    <script src="{{ asset('assets/js/datatables.js') }}"></script>
+    <script> 
+        $(function() { 
+              $('#grid_app_location_locataire').initDataTables({{ datatable_settings(datatable) }}, {
+                  searching: true,
+                  ajaxUrl: "{{ path('app_location_locataire_index') }}",
+                  language: {
+                      url: asset_base_path + "/js/i18n/French.json"
+                  },
+       /*dom:'<"html5buttons"B>lTfgitp',
+        buttons: [
+            {
+                text: 'Export to Excel',
+                action: $.fn.initDataTables.exportBtnAction('excel', {{ datatable_settings(datatable) }})
+            }
+        ]*/
+    
+              });
+        });
+    </script>
+{% endblock %}

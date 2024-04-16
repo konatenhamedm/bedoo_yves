@@ -1,0 +1,168 @@
+{% block page_content %}
+    {% form_theme form 'widget/fields-block.html.twig' %}
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Détails Versement propriotaire</h5>
+        <div class="btn btn-icon btn-sm  ms-2" data-bs-dismiss="modal" aria-label="Close">
+            <span class="svg-icon svg-icon-2x text-white">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="currentColor"></rect>
+					<rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="currentColor"></rect>
+				</svg>
+            </span>
+        </div>
+    </div>
+    {{ form_start(form, {'attr': {'role':'form', 'class': 'form'}}) }}
+    <div class="modal-body content-doc">
+        {{ include('_includes/ajax/response.html.twig') }}
+         <div class="row">
+            <div class="col-md-12 mb-4">{{ form_row(form.dateVersement) }}</div>
+           {#  <div class="col-md-6 mb-4">{{ form_row(form.annee) }}</div> #}
+        </div>
+        <div class="row">
+            <div class="col-md-12 mb-4">{{ form_row(form.type_versement) }}</div>
+           {#  <div class="col-md-6 mb-4">{{ form_row(form.MntTotal,{attr:{'readonly':'readonly'}}) }}</div> #}
+        </div>
+        <div class="row">
+            <div class="col-md-12 mb-4">{{ form_row(form.montant,{attr:{'readonly':'readonly'}}) }}</div>
+           {#  <div class="col-md-6 mb-4">{{ form_row(form.MntTotal,{attr:{'readonly':'readonly'}}) }}</div> #}
+        </div>
+        <div class="row">
+             <div class="col-md-12">
+                <div class="fv-row mb-2 numero">
+                    <label class="required fw-semibold fs-6 mb-2 titre">Espèce-N° reçu</label>
+                    {{ form_widget(form.numero) }}
+                </div>
+            </div>
+        </div>
+        {% if versmt_proprio.preuve %}
+        <div class="row p-0">
+            <div class="col-md-11 mb-4">{{ form_row(form.preuve) }}</div>
+        
+            <div class="col-md-1 mb-4 p-0">
+                                                <a class="btn btn-success btn-xs mt-7 py-4" target="_blank" title="Télécharger le document" href="{{ path('fichier_index', {id:  versmt_proprio.preuve.id }) }}" download> 
+                                                
+                                                {# <i class="fe fe-upload"></i> #}
+                                                    <i class="fa fa-download"></i></a>
+                                                
+                                     </div>
+           
+          
+        </div>
+        {% else %}
+
+<div class="row">
+            <div class="col-md-12 mb-4">{{ form_row(form.preuve) }}</div>
+           {#  <div class="col-md-6 mb-4">{{ form_row(form.MntTotal,{attr:{'readonly':'readonly'}}) }}</div> #}
+        </div>
+        {% endif %}
+        
+         
+    </div>
+    <div class="modal-footer">
+        {# {{ include('_includes/ajax/loader.html.twig') }} #}
+        <button type="button" class="btn btn-default btn-sm" data-bs-dismiss="modal">Annuler</button>
+       
+    </div>
+    {{ form_end(form) }}
+{% endblock %}
+
+{% block java %}
+    <script>
+    
+        $(function () {
+
+
+            init_select2('select');
+            const $type = $('#{{ form.type_versement.vars.id }}');
+            const $annee = $('#{{ form.numero.vars.id }}');
+
+             //const typedata = $('.type_versement').find('option:selected').attr('data-value');
+             const typedata = $('.type').find('option:selected').attr('data-value');
+                //alert(typedata);
+                if(typedata === "ESP"){
+                    
+                    $('.titre').text('Espèce-N° reçu');
+                     $.ajax({
+                        url: '/versement/get_numero',
+                        type: 'get',
+                        dataType: 'json',
+                        success: function (response, status) {
+                         //  alert(response.numero)
+                            $('#versmt_proprio_remise_numero').val(response.numero)
+                           
+                        },
+                        error: function (error) {
+                            console.log(error);
+                        }
+                    });
+                }
+                if(typedata === "MOB"){
+                    $('.titre').text('Mobile money-N° référence');
+                     $('#versmt_proprio_remise_numero').val('')
+                }
+                if(typedata === "BAN"){
+                    $('.titre').text('Vers banque-N° borderea');
+                    $('#versmt_proprio_remise_numero').val('')
+                }
+               if(typedata === "CHE"){
+                    $('.titre').text('Chèque-N° chèque');
+                    $('#versmt_proprio_remise_numero').val('')
+                }
+
+ $type.on('change', function () {
+                const $this = $(this);
+
+                
+               
+                const data = $this.find('option:selected').attr('data-value');
+               // alert(data);
+                if(data === "ESP"){
+                    $('.titre').text('Espèce-N° reçu');
+
+                      $.ajax({
+                        url: '/versement/get_numero',
+                        type: 'get',
+                        dataType: 'json',
+                        success: function (response, status) {
+                             console.log(response.numero)
+                            $('#versmt_proprio_remise_numero').val(response.numero)
+                           
+                        },
+                        error: function (error) {
+                            console.log(error);
+                        }
+                    });
+                }
+                if(data === "MOB"){
+                    $('.titre').text('Mobile money-N° référence');
+                    $('#versmt_proprio_remise_numero').val('')
+                }
+                if(data === "BAN"){
+                    $('.titre').text('Vers banque-N° borderea');
+                    $('#versmt_proprio_remise_numero').val('')
+                }
+               if(data === "CHE"){
+                    $('.titre').text('Chèque-N° chèque');
+                    $('#versmt_proprio_remise_numero').val('')
+                }
+                //alert(mois)
+   
+
+            });
+        });
+        $(function () {
+            init_select2('select', null, '.content-doc');
+        });
+            $('.no-auto').each(function () {
+        const $this = $(this);
+        const $id = $('#' + $this.attr('id'));
+        init_date_picker($id, 'down', (start, e) => {
+            //$this.val(start.format('DD/MM/YYYY'));
+        }, null, null, null);
+
+        $id.on('apply.daterangepicker', function (ev, picker) {
+            $(this).val(picker.startDate.format('DD/MM/YYYY'));
+        });
+    });
+    </script>
+{% endblock %}

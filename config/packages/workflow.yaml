@@ -1,0 +1,23 @@
+framework:
+    workflows:
+        demande:
+            type: 'state_machine'
+            audit_trail:
+                enabled: true
+            marking_store:
+                type: 'method'
+                property: 'statut'
+            supports:
+                - App\Entity\DemandeInscription
+            initial_marking: cree
+            places:
+                - cree
+                - valide
+                - rejete
+            transitions:
+                validation:
+                    from: cree
+                    to: valide
+                rejet:
+                    from: cree
+                    to: rejete

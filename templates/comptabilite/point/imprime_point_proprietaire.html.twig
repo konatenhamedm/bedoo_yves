@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>data</title>
+    <style>
+      {% block page_css %}
+        @page {
+
+          margin-footer: 0.5cm;
+
+          /*header: html_headerContent;*/
+          footer: html_pageFooter;
+          margin-top: 0.5cm;
+          margin-header: 0cm;
+          margin-left: 1cm;
+           margin-right: 1cm;
+          /*background: ...
+  background-image: ...
+  background-position ...
+  background-repeat ...
+  background-color ...
+  background-gradient: ...*/
+        }
+        .clearfix:after,
+        {% endblock %} .clearfix:before {
+          content: " ";
+          display: table;
+        }
+
+        .clearfix:after {
+          clear: both;
+        }
+
+        .mention {
+  position: absolute;
+  bottom: 100px;
+}
+
+        /*@page :first {
+   header: html_headerContent;
+}*/
+
+        .table {
+          width: 100%;
+          max-width: 100%;
+          border-collapse: collapse;
+
+        }
+        .table {
+          page-break-before: auto;
+        }
+
+        body {
+          font-family: Trebuchet,Arial,Helvetica;
+        }
+
+        .table td,
+        .table th {
+          padding: 2px;
+          vertical-align: top;
+          border-top: 1px solid #191919;
+        }
+
+        .table thead th {
+          vertical-align: bottom;
+          border-bottom: 2px solid #191919;
+        }
+
+        .table tbody + tbody {
+          border-top: 1px solid #191919;
+        }
+
+        .table .table {
+          background-color: #fff;
+        }
+
+        .table-sm td,
+        .table-sm th {
+          padding: 0.3rem;
+        }
+
+        .table-bordered {
+          border: 1px solid #191919;
+        }
+
+        .table-bordered td,
+        .table-bordered th {
+          border: 1px solid #191919;
+        }
+
+        .table-bordered thead td,
+        .table-bordered thead th {
+          border-bottom-width: 1px;
+        }
+
+        @media all {
+          /*.content { display: block; page-break-inside: avoid; }*/
+        }
+
+        .content {
+          /*margin-top: 18cm;*/
+        }
+
+        .table-responsive.table-bordered {
+          border: 0;
+        }
+
+        .double_underline {
+            text-decoration:underline;
+            border-bottom: 1px solid #000;
+            text-align: center;
+        }
+    </style>
+  </head>
+  <body style="font-size:12px;">
+    <div class="clearfix">
+     <div style="width:50%;text-align:left;float:left;"  class="">
+            {% set var = "uploads/" ~ menu.findParametre.logo.path ~"/"~ menu.findParametre.logo.alt %}
+        <img src="{{ var |replace({'/': "\\"}) }}" width="200px" height="65px"/>
+        <p>
+            {{ entreprise.adresse}}<br>
+            TEL: +225 {{ entreprise.mobile}} FAX.: +225 {{ entreprise.fax}}<br>
+            EMAIL: <a href="mailto:{{ entreprise.email }}">{{ entreprise.email}}</a>
+        </p>
+      </div>
+   
+       <div style="width:50%;text-align:left;float:right;">
+          {# <h3 style="font-weight:700;font-size:20px">POINT DES PROPRIÉTAIRES | {{ data.appartement.maisson.proprio.nomPrenoms }} : <span style="font-size:10px;color:#FF2E2E">{{ data.compagne.LibCampagne}} </span></h3> #}
+          {# <span style="margin-top: 14px;">{{ 'now' | date('d/m/Y') }}</span> #}
+       
+
+        </div>
+    </div>
+    <div class="clearfix">
+     
+   
+       <div style="width:100%;text-align:center;float:middle;">
+          <h3 style="font-weight:700;font-size:20px"><strong style="border:1px solid black;padding:25px">POINT DES PROPRIÉTAIRES | {{ data.appartement.maisson.proprio.nomPrenoms | upper}} | <span style="font-size:20px;color:#FF2E2E">{{ data.compagne.LibCampagne}} </span></strong></h3>
+          
+        </div>
+    </div>
+     
+    <table class="table table-bordered" style="margin-top:10px;font-size:10px">
+      <thead>
+        <tr>
+          <th style="vertical-align:middle;">Maisons concernées</th>
+          <th style="vertical-align:middle">Quartier</th>
+          <th style="vertical-align:middle;">Villes</th>
+          <th style="vertical-align:middle;">Localisation</th>
+        </tr>
+      </thead>
+      <tbody>
+       
+       
+          {% for m in maisons %}
+            <tr>
+            <td style="vertical-align:middle;text-align:center;padding:8px 5px">{{ m.LibMaison}}</td>
+            <td style="vertical-align:middle;text-align:center;">{{ m.LibQuartier }}</td>
+            <td style="vertical-align:middle;text-align:center;" >{{m.libVille}}</td>
+            <td style="vertical-align:middle;text-align:center;" >{{m.Localisation}}</td>
+            
+           
+          </tr>
+          {% endfor %}
+      
+        
+    </table><br>
+
+      <table class="table table-bordered" style="margin-top:15px;font-size:10px">
+      <thead>
+        <tr>
+          <th style="vertical-align:middle;">Total à encaisser</th>
+          <th style="vertical-align:middle">Total recouvré</th>
+          <th style="vertical-align:middle;">Commission</th>
+          <th style="vertical-align:middle;">Montant à remettre</th>
+        </tr>
+      </thead>
+      <tbody>
+       
+       
+         {#  {% for m in 1...3 %} #}
+         
+            <tr>
+            <td style="vertical-align:middle;text-align:center;padding:8px 5px">{{ total.total|number_format(0, '.', ' ')}}</td>
+            <td style="vertical-align:middle;text-align:center;">{{ total.encaisse|number_format(0, '.', ' ')}}</td>
+            <td style="vertical-align:middle;text-align:center;" >{{commission |number_format(0, '.', ' ') }}</td>
+            <td style="vertical-align:middle;text-align:center;" >{{ reste |number_format(0, '.', ' ')}}</td>
+            {# {{ligne.loyer |number_format(0, '.', '.')}} #}
+           
+          </tr>
+         {#  {% endfor %} #}
+      
+        
+    </table>
+
+    <br>
+      <table class="table table-bordered" style="margin-top:10px;font-size:10px">
+      <thead>
+        <tr>
+          <th style="vertical-align:middle;">Nom du locataire</th>
+          <th style="vertical-align:middle">N Réçu transmis</th>
+          <th style="vertical-align:middle;">Montant</th>
+          <th style="vertical-align:middle;">Date</th>
+          <th style="vertical-align:middle;">Regime</th>
+          <th style="vertical-align:middle;">Remarque</th>
+        </tr>
+      </thead>
+      <tbody>
+       
+       
+          {% for m in locataires %}
+            <tr>
+            <td style="vertical-align:middle;text-align:center;padding:8px 5px">{{ m.locataire.NPrenoms}}</td>
+            <td style="vertical-align:middle;text-align:center;">{{ m.versement ? m.versement.numeroRecu : '' }}</td>
+            <td style="vertical-align:middle;text-align:center;" >{{ m.MntFact |number_format(0, '.', ' ')}}</td>
+            <td style="vertical-align:middle;text-align:center;" >{{ m.DateLimite|date("m/d/Y") }}</td>
+            <td style="vertical-align:middle;text-align:center;" >{{ m.contrat.Regime == 'Paye_Consomme' ? 'Payé consomme': 'Consommé payé'}}</td>
+            <td style="vertical-align:middle;text-align:center;" ></td>
+            
+           
+          </tr>
+          {% endfor %}
+      
+        
+    </table><br>
+
+   <div  style="border-bottom:3px solid #000">
+  </div>
+    
+    
+    <htmlpagefooter name="pageFooter">
+      
+    </htmlpagefooter>
+  </body>
+</html>

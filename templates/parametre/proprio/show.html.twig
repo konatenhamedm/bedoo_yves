@@ -1,0 +1,145 @@
+{% block page_content %}
+    <div class="modal-header">
+        <h4 class="modal-title">Détails Proprio</h4>
+        <div class="btn btn-icon btn-sm  ms-2" data-bs-dismiss="modal" aria-label="Close">
+            <span class="svg-icon svg-icon-2x text-white">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="currentColor"></rect>
+					<rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="currentColor"></rect>
+				</svg>
+            </span>
+        </div>
+    </div>
+   
+    <div class="modal-body">
+        <table class="table table-bordered">
+        <tbody>
+                            <tr>
+                    <th>Id</th>
+                    <td>{{ Proprio.id }}</td>
+                </tr>
+                            <tr>
+                    <th>NomPrenoms</th>
+                    <td>{{ Proprio.nomPrenoms }}</td>
+                </tr>
+                            <tr>
+                    <th>Contacts</th>
+                    <td>{{ Proprio.contacts }}</td>
+                </tr>
+                            <tr>
+                    <th>Email</th>
+                    <td>{{ Proprio.email }}</td>
+                </tr>
+                            <tr>
+                    <th>Addresse</th>
+                    <td>{{ Proprio.addresse }}</td>
+                </tr>
+                            <tr>
+                    <th>NumCni</th>
+                    <td>{{ Proprio.numCni }}</td>
+                </tr>
+                            <tr>
+                    <th>Cni</th>
+                    <td>{{ Proprio.Cni }}</td>
+                </tr>
+                            <tr>
+                    <th>NomPere</th>
+                    <td>{{ Proprio.nomPere }}</td>
+                </tr>
+                            <tr>
+                    <th>NomMere</th>
+                    <td>{{ Proprio.nomMere }}</td>
+                </tr>
+                            <tr>
+                    <th>WhatsApp</th>
+                    <td>{{ Proprio.whatsApp }}</td>
+                </tr>
+                            <tr>
+                    <th>DateNaiss</th>
+                    <td>{{ Proprio.dateNaiss ? Proprio.dateNaiss|date('Y-m-d H:i:s') : '' }}</td>
+                </tr>
+                            <tr>
+                    <th>LieuNaiss</th>
+                    <td>{{ Proprio.lieuNaiss }}</td>
+                </tr>
+                            <tr>
+                    <th>Prefession</th>
+                    <td>{{ Proprio.prefession }}</td>
+                </tr>
+                            <tr>
+                    <th>DateCni</th>
+                    <td>{{ Proprio.dateCni ? Proprio.dateCni|date('Y-m-d H:i:s') : '' }}</td>
+                </tr>
+                            <tr>
+                    <th>NomPrenomsR</th>
+                    <td>{{ Proprio.nomPrenomsR }}</td>
+                </tr>
+                            <tr>
+                    <th>ContactsR</th>
+                    <td>{{ Proprio.contactsR }}</td>
+                </tr>
+                            <tr>
+                    <th>EmailR</th>
+                    <td>{{ Proprio.emailR }}</td>
+                </tr>
+                            <tr>
+                    <th>AdresseR</th>
+                    <td>{{ Proprio.adresseR }}</td>
+                </tr>
+                            <tr>
+                    <th>NomPrereR</th>
+                    <td>{{ Proprio.nomPrereR }}</td>
+                </tr>
+                            <tr>
+                    <th>NomMereR</th>
+                    <td>{{ Proprio.nomMereR }}</td>
+                </tr>
+                            <tr>
+                    <th>WhatsAppR</th>
+                    <td>{{ Proprio.whatsAppR }}</td>
+                </tr>
+                            <tr>
+                    <th>DateNaissR</th>
+                    <td>{{ Proprio.dateNaissR ? Proprio.dateNaissR|date('Y-m-d H:i:s') : '' }}</td>
+                </tr>
+                            <tr>
+                    <th>LieuNaissR</th>
+                    <td>{{ Proprio.lieuNaissR }}</td>
+                </tr>
+                            <tr>
+                    <th>ProfessionR</th>
+                    <td>{{ Proprio.professionR }}</td>
+                </tr>
+                            <tr>
+                    <th>DateCniR</th>
+                    <td>{{ Proprio.dateCniR ? Proprio.dateCniR|date('Y-m-d H:i:s') : '' }}</td>
+                </tr>
+                            <tr>
+                    <th>Lien</th>
+                    <td>{{ Proprio.lien }}</td>
+                </tr>
+                            <tr>
+                    <th>Commission</th>
+                    <td>{{ Proprio.commission }}</td>
+                </tr>
+                            <tr>
+                    <th>TotalDu</th>
+                    <td>{{ Proprio.totalDu }}</td>
+                </tr>
+                            <tr>
+                    <th>TotalPaye</th>
+                    <td>{{ Proprio.totalPaye }}</td>
+                </tr>
+                    </tbody>
+    </table>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn dark btn-outline" data-bs-dismiss="modal">Fermer</button>
+    </div>
+
+{% endblock %}
+{% block java %}
+    <script>
+        
+    </script>
+{% endblock %}
